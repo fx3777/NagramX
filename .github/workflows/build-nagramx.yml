@@ -121,11 +121,10 @@ jobs:
           path: "TMessagesProj/build/outputs/apk/release/*.apk"
           if-no-files-found: warn
 
-      # 若没有自带 keystore，把自动生成的 keystore 也给你留存（以后升级要用同一把钥匙）
-      - name: Upload keystore (only if auto-generated)
-        if: ${{ secrets.RELEASE_KEYSTORE == '' }}
+      # 把 keystore 也留存给你（以后升级要用同一把钥匙）
+      - name: Upload keystore
         uses: actions/upload-artifact@v4
         with:
-          name: NagramX-auto-keystore
+          name: NagramX-keystore
           path: "TMessagesProj/release.keystore"
           if-no-files-found: warn
