@@ -67,6 +67,7 @@ jobs:
           if [ -n "${{ secrets.RELEASE_KEYSTORE }}" ]; then
             echo "${{ secrets.RELEASE_KEYSTORE }}" | base64 -d > TMessagesProj/release.keystore
           else
+            rm -f TMessagesProj/release.keystore
             keytool -genkey -v -keystore TMessagesProj/release.keystore \
               -alias "$KEY_ALIAS" -keyalg RSA -keysize 2048 -validity 10000 \
               -storepass "$KEYSTORE_PASS" -keypass "$KEY_ALIAS_PASS" \
