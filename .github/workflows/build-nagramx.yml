@@ -111,12 +111,13 @@ jobs:
       - name: Build release APK
         run: ./gradlew TMessagesProj:assembleRelease
 
+      # 只上传 arm64-v8a 架构（体积约为全架构的 1/3，便于下载）
       - name: Upload APK(s)
         uses: actions/upload-artifact@v4
         with:
-          name: NagramX-selfbuilt-apk
-          path: "TMessagesProj/build/outputs/apk/release/*.apk"
-          if-no-files-found: warn
+          name: NagramX-arm64-apk
+          path: "TMessagesProj/build/outputs/apk/release/*-arm64-v8a.apk"
+          if-no-files-found: error
 
       # 把 keystore 也留存给你（以后升级要用同一把钥匙）
       - name: Upload keystore
