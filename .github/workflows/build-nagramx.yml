@@ -84,12 +84,8 @@ jobs:
             echo "ALIAS_PASS=$KEY_ALIAS_PASS"
           } > local.properties
 
-          # 3) 同时按 Nagram 官方 CI 习惯导出 LOCAL_PROPERTIES 环境变量
-          {
-            echo "LOCAL_PROPERTIES<<EOF"
-            cat local.properties
-            echo "EOF"
-          } >> "$GITHUB_ENV"
+          # 3) NagramX 的 build.gradle 期望 LOCAL_PROPERTIES 环境变量是 local.properties 的 base64 编码
+          echo "LOCAL_PROPERTIES=$(base64 -w0 local.properties | tr -d '\n')" >> "$GITHUB_ENV"
 
       - name: Prepare google-services.json
         run: |
